@@ -1,19 +1,16 @@
+//Imports
 const express = require('express'); //импортираме експрес-а енд пойнт
-const path = require('path');
 const handlebarsConfig = require('./config/handlebarsConfig');
+const expressConfig = require('./config/expressConfig');
+ 
 
-const app = express(); //викаме експрес функцията 
+//Local variables
+const app = express(); //викаме експрес функцията
 const PORT = 8080; //константа с порта
 
-// app.engine("hbs", handlebars.engine({extname: "hbs"})); //handlebars configuration
-// app.set("view engine", "hbs"); //сетваме view engin-a hdb на application-a 
-// app.set("views", "src/views"); // сетваме hdb към коя папка да бъде 
-
+//configurations
 handlebarsConfig(app);
-
-//setup static files - създава един абсолютен път по който да може. да се ориентира експрес базирано на релативните пътища които ние подаваме
-const staticFiles = express.static(path.resolve(__dirname, "public"));
-app.use(staticFiles);
+expressConfig(app);
 
 app.get("/", (req, res) =>{
     //res.send('Hello from express server');
