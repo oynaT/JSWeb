@@ -2,7 +2,7 @@
 const express = require('express'); //импортираме експрес-а енд пойнт
 const handlebarsConfig = require('./config/handlebarsConfig');
 const expressConfig = require('./config/expressConfig');
- 
+const routes = require('./router');
 
 //Local variables
 const app = express(); //викаме експрес функцията
@@ -13,9 +13,6 @@ handlebarsConfig(app);
 expressConfig(app);
 
 //Routing
-app.get("/", (req, res) =>{
-    //res.send('Hello from express server');
-    res.render("index");
-})
+app.use(routes);
 
 app.listen(PORT, () => console.log(`Servers is running on port ${PORT}...`)); //логваме да виждаме кога работи сървъра
