@@ -12,6 +12,7 @@ const PORT = 8080; //константа с порта
 handlebarsConfig(app);
 expressConfig(app);
 
+//Routing
 app.get("/", (req, res) =>{
     //res.send('Hello from express server');
     res.render("index");
