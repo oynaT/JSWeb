@@ -9,6 +9,7 @@ app.engine("hbs", handlebars.engine({extname: "hbs"})); //handlebars configurati
 app.set("view engine", "hbs"); //сетваме view engin-a hdb на application-a 
 app.set("views", "src/views"); // сетваме hdb към коя папка да бъде 
 
+//setup static files - създава един абсолютен път по който да може. да се ориентира експрес базирано на релативните пътища които ние подаваме
 const staticFiles = express.static(path.resolve(__dirname, "public"));
 app.use(staticFiles);
 
