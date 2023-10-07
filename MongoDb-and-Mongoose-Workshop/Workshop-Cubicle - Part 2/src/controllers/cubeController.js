@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { request } = require("express");
+//const { request } = require("express");
 const cubeService = require('../services/cubeService');
 
 router.get('/create', (req, res) => {
@@ -30,7 +30,5 @@ router.get("/:cubeId/details", (req, res) => {
         return;
     }
     res.render("details", {...cube});
-})
-
-
+});
 module.exports = router;
