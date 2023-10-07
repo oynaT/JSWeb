@@ -1,50 +1,20 @@
  
- const uniqid = require("uniqid");
- 
- const cubes = [
-    //{
-      //   id: '62209f8ln7sc0rt',
-      //   name: 'Cube 1',
-      //   description: 'test',
-      //   imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMRS4ZW4gPHEn-zNHpIyfTRMs4qhXJGjoRR4gcsMR3Aw&s',
-      //   difficultyLevel: 1
-      // },
-      // {
-      //   id: '62209f8ln7sc',
-      //   name: 'Cube 2',
-      //   description: 'test 2',
-      //   imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMRS4ZW4gPHEn-zNHpIyfTRMs4qhXJGjoRR4gcsMR3Aw&s',
-      //   difficultyLevel: 2
-      // },
-      // {
-      //   id: '62209f8lc',
-      //   name: 'Cube 3',
-      //   description: 'test 3',
-      //   imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMRS4ZW4gPHEn-zNHpIyfTRMs4qhXJGjoRR4gcsMR3Aw&s',
-      //   difficultyLevel: 3
-      // }
+ const Cube = require("./../models/Cube");
+ const cubes = [];
 
- ];
+ exports.create = async (cubeData) => {
+    // const cube = new Cube(cubeData);
+    // await cube.save();
 
-//exports.create = (name, description, imageUrl, difficultyLevel) => {
-
-    exports.create = (cubeData) => {
-    const id = uniqid();
-    const newCube = {
-        id,
-        ...cubeData,
-        // name, 
-        // description, 
-        // imageUrl, 
-        // difficultyLevel,
-    };
-    cubes.push(newCube);
-    return newCube;
+    const cube = await Cube.create(cubeData);
+    return cube; //понякога го има като практика да го върнем към базата..
 };
 
- exports.getAll = (search, from, to) => {
+ exports.getAll = async(search, from, to) => {
+ //let filterCubes = [...cubes]; //LET
+ let filterCubes = await Cube.find().lean(); //LET
 
- let filterCubes = [...cubes]; //LET
+ //TODO: filter this with mongoose - query
   if(search){
     filterCubes = filterCubes.filter((cube) => 
     cube.name.toLowerCase().includes(search.toLowerCase())
@@ -61,7 +31,6 @@
     return filterCubes;
  };
 
-
  exports.getSingleCube = (id) => {
-    return cubes.find((cube) => cube.id === id);
+  return Cube.findById(id);
  }

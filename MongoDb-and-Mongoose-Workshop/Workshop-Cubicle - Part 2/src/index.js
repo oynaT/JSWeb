@@ -3,7 +3,6 @@ const express = require('express'); //импортираме експрес-а �
 const handlebarsConfig = require('./config/handlebarsConfig');
 const expressConfig = require('./config/expressConfig');
 const routes = require('./router');
-
 const dbConnect = require('./config/dbConfig');
 
 //Local variables
