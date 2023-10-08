@@ -9,9 +9,10 @@ router.post("/register", async (req, res) => {
     console.log({inputData: req.body});
     const {username, password, repeatPassword } = req.body; // деструкториране
 
-    await userService.create({
+    await userService.register({
         username, 
         password,
+        repeatPassword
    });
    res.redirect('/users/login');
 });

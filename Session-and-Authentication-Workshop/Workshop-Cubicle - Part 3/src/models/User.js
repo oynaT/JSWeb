@@ -5,7 +5,14 @@ const userSchema = new mongoose.Schema({
     password: String,
 });
 
-const User = mongoose.model("User", userSchema);
+//TODO: if this user already exists, throw error
+//virtual property
+userSchema.virtual("repeatPassword").set(function (value) {
+    if (value !== this.password) {
+     throw new mongoose.MongooseError("Passwort not match!");
+    }   
+});
 
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
