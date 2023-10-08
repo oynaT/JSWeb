@@ -31,7 +31,11 @@ router.get("/:cubeId/details", async (req, res) => {
         res.redirect("/404");
         return;
     }
-    res.render("cube/details", {...cube});
+
+    //const hasAccessories = cube.accessories?.length > 0;
+    const accessories = cube.accessories;
+    const hasAccessories = accessories === undefined ? false : accessories.length > 0;
+    res.render("cube/details", { cube, hasAccessories });
 });
 
 //Accessry attachement
@@ -41,7 +45,7 @@ router.get("/:cubeId/attach-accessory", async (req, res) => {
     //console.log(req.params.cubeId);  
     
     const accessories = await accessoryService.getAll().lean();
-    const hasAccessories = accessories.length > 0;
+    const hasAccessories = accessories.length > 0;  // view data, template data
 
     res.render('accessory/attach' , { cube,accessories, hasAccessories });
 });
@@ -52,7 +56,7 @@ router.post("/:cubeId/attach-accessory", async (req, res) => {
     const {cubeId} = req.params;
     // console.log(req.cubeId);  
     // console.log(req.body); 
-    const { accssory: accessoryId } = req.body;
+    const { accessory: accessoryId } = req.body;
     await cubeService.attachAccessory(cubeId , accessoryId);
 
     res.redirect(`/cubes/${cubeId}/details`);
