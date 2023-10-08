@@ -22,6 +22,19 @@ router.get('/login', (req, res) =>{
 });
 
 
+router.post('/login', async (req, res) =>{
+    //find user
+    const {username, password } = req.body; // деструкториране
+    // console.log({logindata: req.body})
+    const user = await userService.login(username, password);
+
+    //compare passwords 
+
+
+    //когато се логнем на редиректнем към home
+    res.redirect("/");
+});
+
 // router.get('/logout', (req, res) =>{
 //     res.render("user/logout");
 // });

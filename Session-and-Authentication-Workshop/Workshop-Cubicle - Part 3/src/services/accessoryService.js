@@ -5,7 +5,6 @@ const Accessory = require("./../models/Accessory");
     return accessory; //понякога го има като практика да го върнем към базата..
 };
 
-
 //взимаме всички аксесоари -> викаме ги там където са атачмантите
 exports.getAll = () => Accessory.find();
 
