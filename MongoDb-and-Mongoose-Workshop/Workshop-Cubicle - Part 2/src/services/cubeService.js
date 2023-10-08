@@ -34,3 +34,10 @@
  exports.getSingleCube = (id) => {
   return Cube.findById(id);
  }
+
+ //attach mettod
+ exports.attachAccessory = async (cubeId, accessoryId) => {
+  const cube = await this.getSingleCube(cubeId);
+  cube.accessories.push(accessoryId);
+  return cube.save();
+ }
