@@ -24,3 +24,14 @@ if(token){
     next();
 }
 };
+
+
+//блокираме урл-ите за достъпа до контролерите ако не сме логнати да го достъпваме ръчно през адреса
+//Guard Clouse 
+exports.isAuth = (req, res, next) => {
+    if (!req.user) {
+      return res.redirect("/users/login");
+    }
+  
+    next();
+  };
