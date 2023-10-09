@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const cubeService = require("../services/cubeService");
 const accessoryService = require("../services/accessoryService");
-const {difficultyLevelOptionsViewData} = require("../utils/viewData")
+const { difficultyLevelOptionsViewData } = require("../utils/viewData");
 
 router.get("/create", (req, res) => {
     //console.log(cubeService.getAll());
@@ -11,7 +11,6 @@ router.get("/create", (req, res) => {
 router.post("/create", async (req, res) => {
     //console.log(req.body);
     const {name, description, imageUrl, difficultyLevel} = req.body;
-
 
     await cubeService.create({
         name, 
@@ -70,26 +69,34 @@ router.post("/:cubeId/attach-accessory", async (req, res) => {
 router.get("/:cubeId/edit", async (req, res) => {
     //console.log(cubeService.getAll());
     const {cubeId} = req.params;
-    const cube = await  cubeService.getSingleCube(cubeId).lean();
-
-    //! This should be implemented everywhere for safetiness!
-    // if (cube.owner?.toString() !== req.user._id) {
-    //     return res.redirect("/404");
-    // }
+    const cube = await cubeService.getSingleCube(cubeId).lean();
 
     const opitons = difficultyLevelOptionsViewData(cube.difficultyLevel);
     res.render("cube/edit", {cube, opitons});
 });
 
+router.post("/:cubeId/edit", async (req, res) => {
+    const { cubeId } = req.params;
+    const { name, imageUrl, difficultyLevel, description } = req.body;
+    const payload = { name, imageUrl, difficultyLevel, description };
+  
+    await cubeService.update(cubeId, payload);
+  
+    res.redirect(`/cubes/${cubeId}/details`);
+  });
 
 router.get("/:cubeId/delete", async(req, res) => {
     const {cubeId} = req.params;
     const cube = await  cubeService.getSingleCube(cubeId).lean();
     const opitons = difficultyLevelOptionsViewData(cube.difficultyLevel);
-    
+
     res.render("cube/delete", {cube, opitons});
 });
 
-
+router.post("/:cubeId/delete", async (req, res) => {
+    await cubeService.delete(req.params.cubeId);
+  
+    res.redirect("/");
+  });
 
 module.exports = router;

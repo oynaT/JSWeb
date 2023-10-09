@@ -1,4 +1,4 @@
-exports.difficultyLevelOptionsViewData = (difficultyLevel) => {
+  exports.difficultyLevelOptionsViewData = (difficultyLevel) => {
     const titles = [
       "Easy",
       "Medium (Standard 3x3)",
@@ -13,6 +13,7 @@ exports.difficultyLevelOptionsViewData = (difficultyLevel) => {
         title: `${value} - ${title}`,
         value,
         selected: Number(difficultyLevel) === value,
+          //selected: Number(difficultyLevel) === value ? "selected" : "",
       };
     });
   
