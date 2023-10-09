@@ -26,9 +26,8 @@ router.post('/login', async (req, res) =>{
     const {username, password } = req.body; // деструкториране
     // console.log({logindata: req.body})
     const token = await userService.login(username, password);
-
+    // Записваме че сме логнати с cookie tokeb - jwt
     res.cookie("auth", token, { httpOnly: true });
-
     //когато се логнем на редиректнем към home
     res.redirect("/");
 });
