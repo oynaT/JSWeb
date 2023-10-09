@@ -36,7 +36,10 @@ router.get("/:cubeId/details", async (req, res) => {
     //const hasAccessories = cube.accessories?.length > 0;
     const accessories = cube.accessories;
     const hasAccessories = accessories === undefined ? false : accessories.length > 0;
-    res.render("cube/details", { cube, hasAccessories });
+    const isOwner = cube.owner?.toString() === req.user._id;
+ //console.log(cube.owner);
+ //console.log(req.user);
+    res.render("cube/details", { cube, hasAccessories, isOwner });
 });
 
 //Accessry attachement
@@ -53,7 +56,6 @@ router.get("/:cubeId/attach-accessory", async (req, res) => {
 
     res.render('accessory/attach' , { cube,accessories, hasAccessories });
 });
-
 
 //attach method
 router.post("/:cubeId/attach-accessory", async (req, res) => {
