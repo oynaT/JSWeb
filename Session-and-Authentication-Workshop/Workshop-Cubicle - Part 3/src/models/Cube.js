@@ -13,6 +13,10 @@ const cubeSchema = new mongoose.Schema({
         ref: "Accessory" // the name of the model
     },
     ],
+    owner: { 
+       type: mongoose.Types.ObjectId,
+       ref: 'User'
+    }
     //1 куб към един акесоар 
     // accessory: {
     //     type: mongoose.Types.ObjectId, //type from mongo
