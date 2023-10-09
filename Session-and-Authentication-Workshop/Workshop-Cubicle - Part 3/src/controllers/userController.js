@@ -21,22 +21,21 @@ router.get('/login', (req, res) =>{
     res.render("user/login");
 });
 
-
 router.post('/login', async (req, res) =>{
     //find user
     const {username, password } = req.body; // деструкториране
     // console.log({logindata: req.body})
-    const user = await userService.login(username, password);
+    const token = await userService.login(username, password);
 
-    //compare passwords 
-
+    res.cookie("auth", token, { httpOnly: true });
 
     //когато се логнем на редиректнем към home
     res.redirect("/");
 });
 
-// router.get('/logout', (req, res) =>{
-//     res.render("user/logout");
-// });
+router.get("/logout", (req, res) => {
+    res.clearCookie("auth");
+    res.redirect("/");
+  });
 
 module.exports = router;
